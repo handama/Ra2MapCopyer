@@ -1,0 +1,8 @@
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\bin\Debug\RA2MapCopyer.exe
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\bin\Debug\RA2MapCopyer.pdb
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\bin\Debug\Rampastring.Tools.dll
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\obj\Debug\RA2MapCopyer.csproj.AssemblyReference.cache
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\obj\Debug\RA2MapCopyer.csproj.CoreCompileInputs.cache
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\obj\Debug\RA2MapCopyer.csproj.CopyComplete
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\obj\Debug\RA2MapCopyer.exe
+C:\Users\hanfangxu\source\repos\RA2MapCopyer\RA2MapCopyer\obj\Debug\RA2MapCopyer.pdb
