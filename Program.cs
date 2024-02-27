@@ -29,59 +29,18 @@ namespace RA2MapCopyer
         public static bool CopyTerrain = true;
         public static bool CopyCellTag = true;
         public static bool CopyWaypoint = true;
+        public static bool CoverExisting = true;
         //public static bool CopyWaypointStrictly = false;
 
         static void Main(string[] args)
         {
-            var settings = new IniFile("settings.ini").GetSection("settings");
 
-            CopyOverlay = settings.GetBooleanValue("CopyOverlay", true);
-            CopyStructure = settings.GetBooleanValue("CopyStructure", true);
-            CopyUnit = settings.GetBooleanValue("CopyUnit", true);
-            CopyInfantry = settings.GetBooleanValue("CopyInfantry", true);
-            CopyAircraft = settings.GetBooleanValue("CopyAircraft", true);
-            CopySmudge = settings.GetBooleanValue("CopySmudge", true);
-            CopyTerrain = settings.GetBooleanValue("CopyTerrain", true);
-            CopyCellTag = settings.GetBooleanValue("CopyCellTag", true);
-            CopyWaypoint = settings.GetBooleanValue("CopyWaypoint", true);
+            var map = new MapFile();
+/*            map.ReadIsoMapPack5("map.map");
+            map.SaveWorkingMapPack("decompressed.ini");*/
 
-
-            Console.WriteLine("请输入源地图文件名：");
-            MapFileName = Console.ReadLine();
-
-            Console.WriteLine("请输入起始路径点：");
-            StartWayPoint = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("请输入结尾路径点：");
-            EndWayPoint = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("请输入目标地图文件名：");
-            TargetMapFileName = Console.ReadLine();
-
-            Console.WriteLine("请输入起始路径点：");
-            TargetWaypoint = int.Parse(Console.ReadLine());
-
-            var originMap = new MapFile();
-            originMap.ReadIsoMapPack5(MapFileName);
-            originMap.GetUsedObjects(MapFileName);
-            originMap.ReadOverlay(MapFileName);
-            originMap.ReadNonTileObjects(MapFileName);
-
-            var targetMap = new MapFile();
-            targetMap.ReadIsoMapPack5(TargetMapFileName);
-            targetMap.MergeIsoMapPack5(TargetMapFileName, originMap.IsoTileList);
-            targetMap.SaveIsoMapPack5(TargetMapFileName);
-
-            if (CopyOverlay)
-            {
-                targetMap.ReadOverlay(TargetMapFileName);
-                targetMap.MergeOverlay(TargetMapFileName, originMap.OverlayList);
-                targetMap.SaveOverlay(TargetMapFileName);
-            }
-
-            targetMap.ReadNonTileObjects(TargetMapFileName);
-            targetMap.MergeNonTileObjects(TargetMapFileName, originMap.NonTileObjectList, originMap.IsoTileList);
-            targetMap.SaveNonTileObjects(TargetMapFileName);
+            map.LoadWorkingMapPack("decompressed.ini");
+            map.SaveIsoMapPack5("map.map");
 
         }
     }

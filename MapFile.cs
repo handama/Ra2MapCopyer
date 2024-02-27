@@ -121,7 +121,7 @@ namespace RA2MapCopyer
         public void SaveIsoMapPack5(string path)
         {
             long di = 0;
-            int cells = (Width * 2 - 1) * Height;
+            int cells = (Width * 2 - 1) * Height + 1;
             int lzoPackSize = cells * 11 + 4;
             var isoMapPack2 = new byte[lzoPackSize];
             foreach (var tile in IsoTileList)
@@ -165,7 +165,7 @@ namespace RA2MapCopyer
             mapPack.AddSection("mapPack");
             var mapPackSection = mapPack.GetSection("mapPack");
             int mapPackIndex = 1;
-            mapPackSection.SetStringValue("0", "Dx,Dy,Rx,Ry,Z,TileNum,SubTile");
+            mapPackSection.SetStringValue("Format", "Dx,Dy,Rx,Ry,Z,TileNum,SubTile");
             mapPack.SetStringValue("Map", "Size", Width.ToString() + "," + Height.ToString());
 
             for (int i = 0; i < IsoTileList.Count; i++)
