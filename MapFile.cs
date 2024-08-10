@@ -476,6 +476,8 @@ namespace RA2MapCopyer
                     }
                 }
             }
+            Program.SourceWaypoint = WaypointList[0];
+
             for (int i = 0; i < WaypointList.Count(); i++)
             {
                 var line = new Line();
@@ -693,7 +695,7 @@ namespace RA2MapCopyer
             }
         }
 
-        public void ReadNonTileObjects(string path)
+        public void ReadNonTileObjects(string path, bool cover = false, List<IsoTile> isoTileList = null)
         {
             var mapFile = new IniFile(path);
             var waypointSection = mapFile.GetSection("Waypoints");
@@ -708,6 +710,16 @@ namespace RA2MapCopyer
                 }
             }
 
+            var wp2 = new Waypoint();
+
+            foreach (var waypointLine in waypointSection.Keys)
+            {
+                if (int.Parse(waypointLine.Key) == Program.TargetWaypoint)
+                {
+                    wp2.Initialize(waypointLine);
+                }
+            }
+
             //建筑
             NonTileObjectList.StructureList = new List<Structure>();
             if (mapFile.SectionExists("Structures"))
@@ -719,7 +731,26 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey.Value);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyStructure)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.StructureList.Add(obj);
+                   
                 }
             }
 
@@ -734,6 +765,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey.Value);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyUnit)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.UnitList.Add(obj);
                 }
             }
@@ -749,6 +798,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey.Value);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyInfantry)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.InfantryList.Add(obj);
                 }
             }
@@ -764,6 +831,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey.Value);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyAircraft)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.AircraftList.Add(obj);
                 }
             }
@@ -779,6 +864,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey.Value);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopySmudge)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.SmudgeList.Add(obj);
                 }
             }
@@ -794,6 +897,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyTerrain)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.TerrainList.Add(obj);
                 }
             }
@@ -810,6 +931,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyCellTag)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.CellTagList.Add(obj);
                 }
             }
@@ -825,6 +964,24 @@ namespace RA2MapCopyer
                     obj.Initialize(objKey);
                     obj.RelativeX = obj.X - wp.X;
                     obj.RelativeY = obj.Y - wp.Y;
+
+                    if (cover && isoTileList != null && Program.CopyWaypoint)
+                    {
+                        bool jump = false;
+                        foreach (var isoTile in isoTileList)
+                        {
+                            if (isoTile.Used)
+                            {
+                                int x = isoTile.Rx - Program.SourceWaypoint.X + wp2.X;
+                                int y = isoTile.Ry - Program.SourceWaypoint.Y + wp2.Y;
+                                if (obj.X == x && obj.Y == y)
+                                    jump = true;
+                            }
+                        }
+                        if (jump)
+                            continue;
+                    }
+
                     NonTileObjectList.WaypointList.Add(obj);
                 }
             }

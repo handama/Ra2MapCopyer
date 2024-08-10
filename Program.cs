@@ -20,6 +20,8 @@ namespace RA2MapCopyer
         public static string TargetMapFileName;
         public static int TargetWaypoint;
 
+        public static Waypoint SourceWaypoint;
+
         public static bool CopyOverlay = true;
         public static bool CopyStructure = true;
         public static bool CopyUnit = true;
@@ -29,6 +31,7 @@ namespace RA2MapCopyer
         public static bool CopyTerrain = true;
         public static bool CopyCellTag = true;
         public static bool CopyWaypoint = true;
+        public static bool CoverExisting = true;
         //public static bool CopyWaypointStrictly = false;
 
         static void Main(string[] args)
@@ -44,7 +47,7 @@ namespace RA2MapCopyer
             CopyTerrain = settings.GetBooleanValue("CopyTerrain", true);
             CopyCellTag = settings.GetBooleanValue("CopyCellTag", true);
             CopyWaypoint = settings.GetBooleanValue("CopyWaypoint", true);
-
+            CoverExisting = settings.GetBooleanValue("CoverExisting", true);
 
             Console.WriteLine("请输入源地图文件名：");
             MapFileName = Console.ReadLine();
@@ -79,10 +82,9 @@ namespace RA2MapCopyer
                 targetMap.SaveOverlay(TargetMapFileName);
             }
 
-            targetMap.ReadNonTileObjects(TargetMapFileName);
+            targetMap.ReadNonTileObjects(TargetMapFileName, CoverExisting, originMap.IsoTileList);
             targetMap.MergeNonTileObjects(TargetMapFileName, originMap.NonTileObjectList, originMap.IsoTileList);
             targetMap.SaveNonTileObjects(TargetMapFileName);
-
         }
     }
 }

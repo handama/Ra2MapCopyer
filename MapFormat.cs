@@ -6,6 +6,8 @@ using System.Text;
 
 namespace RA2MapCopyer
 {
+
+
     public class Overlay : NumberedMapObject
     {
         public byte OverlayID { get; set; }
